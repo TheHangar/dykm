@@ -1,0 +1,21 @@
+{
+  "name": "dykm",
+  "version": "1.0.0",
+  "description": "Learning Node et PostgreSQL",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yannis94/dykm.git"
+  },
+  "author": "yannis94",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yannis94/dykm/issues"
+  },
+  "homepage": "https://github.com/yannis94/dykm#readme",
+  "dependencies": {}
+}
