@@ -7,7 +7,7 @@ import './App.css';
 function App() {
 
   const [isLogged, setIsLogged] = useState(false)
-  const [apiCall, setApiCall] = useState({})
+  //const [apiCall, setApiCall] = useState({})
 
   //fetch("/api")
   //.then(rep => rep.json())

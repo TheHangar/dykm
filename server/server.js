@@ -14,51 +14,26 @@ const server = http.createServer((req, res) => {
         directory = path.dirname(directory)
     }
 
-
-    if (req.url === "/") {
-
-        fs.readFile("./index.html", "utf8", (err, file) => {
-            if (err) {
+    if (directory === "/loggin") {
+        if (req.method === "POST") {
+            let infos = ''
+            req.on("data", (chunk) => {
+                infos += chunk
+            })
+            req.on('end', () => {
+                console.log(infos)
+                //verify mail & hash in db
+                //if good > status code 200
+                //if not > status code 401
+                res.statusCode = 401
+                res.end()
+            })
+            req.on('error', (err) => {
                 console.log(err)
-                res.statusCode = 503
-                res.setHeader("Content-Type", MIME.html)
-                res.end("<h1>503, Internal error</h1>")
-            }
-            else {
-                res.statusCode = 200
-                res.setHeader("Content-Type", MIME.html)
-                res.end(file)
-            }
-        })
-
-        
-    }
-
-    else if (directory === "/api") {
-        res.statusCode = 200
-        res.setHeader("Content-Type", MIME.json)
-        res.end(JSON.stringify({"msg": "Hello friend"}))
-    }
-
-    else if (directory === "/public") {
-
-        let fileExt = path.extname(req.url).replace(".", "")
-        let fileContent = ""
-
-        const stream = fs.createReadStream(`./${req.url}`, (err) => {
-            if (err) {
-                console.log(err)
-            }
-        })
-        stream.on("data", chunk => {
-            fileContent += chunk
-        })
-        stream.on("end", () => {
-            res.statusCode = 200
-            res.setHeader("Content-Type", MIME[fileExt])
-            res.end(fileContent)
-        })
-
+                res.statusCode = 500
+                res.end()
+            })
+        }
     }
 
     else {

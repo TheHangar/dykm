@@ -10,11 +10,19 @@
 }
 
 #login-form {
-    height: 150px;
+    /*height: 150px;*/
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+.login-form-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100px;
+    margin-bottom: 20px;
 }
 
 .dykm-input {
@@ -32,4 +40,41 @@
     border-radius: 8px;
     border-width: 0;
     padding: 10px 15px;
+}
+
+.errors-infos {
+    font-style: italic;
+    color: #bd375b;
+}
+
+.shake {
+    animation: 0.5s ease-out shake;
+}
+
+.loader {
+    width: 15px;
+    height: 15px;
+    border: solid 3px lightgray;
+    border-top: solid 3px var(--btn-primary);
+    border-right: solid 3px var(--btn-primary);
+    border-bottom: solid 3px var(--btn-primary);
+    border-radius: 50%;
+    animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes shake {
+    0% { margin-left: 0px; }
+    10% { margin-left: -50px }
+    20% { margin-left: 0px }
+    30% { margin-left: 50px }
+    40% { margin-left: 0px }
+    50% { margin-left: -50px }
+    60% { margin-left: 0px }
+    75% { margin-left: -50px }
+    100% { margin-left: 0px; }
 }
