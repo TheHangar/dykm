@@ -3,8 +3,9 @@ const fs = require("fs")
 const path = require("path")
 
 const MIME = require("./config/mime")
+const { json } = require("./config/mime")
 
-const port = 8080
+const PORT = process.env.PORT || 3003
 const host = "127.0.0.1"
 
 const server = http.createServer((req, res) => {
@@ -31,6 +32,12 @@ const server = http.createServer((req, res) => {
         })
 
         
+    }
+
+    else if (directory === "/api") {
+        res.statusCode = 200
+        res.setHeader("Content-Type", MIME.json)
+        res.end(JSON.stringify({"msg": "Hello friend"}))
     }
 
     else if (directory === "/public") {
@@ -62,6 +69,6 @@ const server = http.createServer((req, res) => {
     
 })
 
-server.listen(port, host, () => {
-    console.log("Server running")
+server.listen(PORT, host, () => {
+    console.log("Server running at " + PORT)
 })

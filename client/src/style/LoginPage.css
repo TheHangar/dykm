@@ -1,0 +1,35 @@
+
+#login-screen {
+    width: 60%;
+    height: 100%;
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#login-form {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dykm-input {
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 18px;
+    border-width: 0;
+    background-color: var(--input-primary) ;
+}
+
+.dykm-btn {
+    background-color: var(--btn-primary);
+    color: white;
+    font-size: 15px;
+    border-radius: 8px;
+    border-width: 0;
+    padding: 10px 15px;
+}
