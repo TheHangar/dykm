@@ -4,6 +4,7 @@ const path = require("path")
 
 const MIME = require("./config/mime")
 const DB = require("./config/db.js")
+const { json } = require("./config/mime")
 
 const PORT = process.env.PORT || 3003
 const host = "127.0.0.1"
@@ -21,14 +22,16 @@ const server = http.createServer((req, res) => {
                 infos += chunk
             })
             req.on('end', () => {
-                console.log(infos)
-                //verify mail & hash in db
-                //if good > status code 200
-                //if not > status code 401
-
-                //DB.test(infos)
-
-                res.statusCode = 401
+                console.log(JSON.parse(infos))
+                let isAuth = DB.checkUser(JSON.parse(infos))
+                console.log(isAuth)
+                if (isAuth) {
+                    res.statusCode = 200
+                }
+                else {
+                    console.log("non")
+                    res.statusCode = 401
+                }
                 res.end()
             })
             req.on('error', (err) => {
@@ -39,18 +42,19 @@ const server = http.createServer((req, res) => {
         }
     }
 
-    if (requestPath === "/adduser") {
+    else if (requestPath === "/adduser") {
         if (req.method === "POST") {
             let infos = ''
             req.on("data", (chunk) => {
                 infos += chunk
             })
             req.on('end', () => {
-                console.log(infos)
+                console.log(JSON.parse(infos))
                 //create new row in db
                 //if good > status code 200
                 //if not > status code 401
-                res.statusCode = 401
+                DB.addUser(JSON.parse(infos))
+                res.statusCode = 200
                 res.end()
             })
             req.on('error', (err) => {

@@ -9,7 +9,7 @@ export default function LoginPage () {
 
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(false)
-    const [newAccout, setNewAccout] = useState(true)
+    const [newAccout, setNewAccout] = useState(false)
     const [userInfo, setUserInfo] = useState({})
 
     function hashGenerator(word) {
@@ -41,7 +41,15 @@ export default function LoginPage () {
         let infoValid = true
         setIsLoading(true)
 
+        if (userInfo === {} || document.querySelector("#dykm-user-password").value === "") {
+            setError('You should complete all inputs.')
+            infoValid = false
+            setIsLoading(false)
+            return
+        }
+
         for (let data in userInfo) {
+            console.log(data)
             if (userInfo[data] === "") {
                 setError('You should complete all inputs.')
                 setIsLoading(false)
@@ -86,6 +94,20 @@ export default function LoginPage () {
                     method: 'POST',
                     body: JSON.stringify(userInfo)
                 })
+                .then(rep => {
+                    if (rep.status === 200) {
+                        //jsp encore
+                        //set or receive & store JWT ?
+                        //send to profile page
+                        setError("Adding succes")
+                    }
+                    else if (rep.status >= 500 && rep.status <= 599) {
+                        setError('Server error, please try again or later.')                    
+                    }
+                    else {
+                        setError('Unknow error happend, please try again.')
+                    }
+                })
             }
             else {
                 setError('It seems that you did not enter the same password.')
@@ -103,6 +125,12 @@ export default function LoginPage () {
     function loginUser(e) {
 
         setIsLoading(true)
+
+        if (userInfo === {} || document.querySelector("#dykm-input-password").value === "") {
+            setError("You should complete all inputs.")
+            setIsLoading(false)
+            return
+        }
         
         userInfo.password = hashGenerator(userInfo.password)
         
@@ -119,6 +147,7 @@ export default function LoginPage () {
                 //jsp encore
                 //set or receive & store JWT ?
                 //send to profile page
+                console.log("Auth succes")
             }
             else if (rep.status >= 500 && rep.status <= 599) {
                 setError('Server error, please try again or later.')                    
@@ -146,6 +175,7 @@ export default function LoginPage () {
                     <h2>Create your account</h2>
                     <div className="login-form-inputs">
                         {error === '' ? null : <p className="errors-infos shake">{error}</p>}
+                        <input id="dykm-user-pseudo" className="dykm-input" data-info="pseudo" type="text" placeholder="Your pseudo" onChange={handleChange} />
                         <input id="dykm-user-firstname" className="dykm-input" data-info="firstname" type="text" placeholder="Your firstname" onChange={handleChange} />
                         <input id="dykm-user-lastname" className="dykm-input" data-info="lastname" type="text" placeholder="Your lastname" onChange={handleChange} />
                         <input id="dykm-user-email" className="dykm-input" data-info="email" type="email" placeholder="Email address" onChange={handleChange} />
