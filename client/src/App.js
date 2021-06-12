@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import LoginPage from './components/LoginPage';
+import LoginPage from './components/LoginPage.jsx';
 
 import './App.css';
 

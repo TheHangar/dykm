@@ -3,18 +3,17 @@ const fs = require("fs")
 const path = require("path")
 
 const MIME = require("./config/mime")
-const { json } = require("./config/mime")
 
 const PORT = process.env.PORT || 3003
 const host = "127.0.0.1"
 
 const server = http.createServer((req, res) => {
-    let directory = req.url
-    while(path.dirname(directory) !== "/") {
-        directory = path.dirname(directory)
+    let requestPath = req.url
+    while(path.dirname(requestPath) !== "/") {
+        requestPath = path.dirname(requestPath)
     }
 
-    if (directory === "/loggin") {
+    if (requestPath === "/login") {
         if (req.method === "POST") {
             let infos = ''
             req.on("data", (chunk) => {
@@ -23,6 +22,28 @@ const server = http.createServer((req, res) => {
             req.on('end', () => {
                 console.log(infos)
                 //verify mail & hash in db
+                //if good > status code 200
+                //if not > status code 401
+                res.statusCode = 401
+                res.end()
+            })
+            req.on('error', (err) => {
+                console.log(err)
+                res.statusCode = 500
+                res.end()
+            })
+        }
+    }
+
+    if (requestPath === "/adduser") {
+        if (req.method === "POST") {
+            let infos = ''
+            req.on("data", (chunk) => {
+                infos += chunk
+            })
+            req.on('end', () => {
+                console.log(infos)
+                //create new row in db
                 //if good > status code 200
                 //if not > status code 401
                 res.statusCode = 401

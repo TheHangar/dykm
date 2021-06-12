@@ -6,6 +6,7 @@
   --input-primary: #ece6eb;
   --font-title: 'Lato', sans-serif;
   --font-text: 'Varela Round', sans-serif;
+  --font-link-col: rgb(60, 60, 197);
 }
 
 
@@ -30,4 +31,10 @@ body {
 
 #App p {
   font-family: var(--font-text);
+}
+
+.dykm-link {
+  color: var(--font-link-col);
+  text-decoration: underline;
+  cursor: pointer;
 }
