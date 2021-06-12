@@ -3,6 +3,7 @@ const fs = require("fs")
 const path = require("path")
 
 const MIME = require("./config/mime")
+const DB = require("./config/db.js")
 
 const PORT = process.env.PORT || 3003
 const host = "127.0.0.1"
@@ -24,6 +25,9 @@ const server = http.createServer((req, res) => {
                 //verify mail & hash in db
                 //if good > status code 200
                 //if not > status code 401
+
+                //DB.test(infos)
+
                 res.statusCode = 401
                 res.end()
             })

@@ -141,21 +141,21 @@ export default function LoginPage () {
     if (newAccout) {
         return (
             <div id="login-screen">
-            <h1>Do You Know Me ?</h1>
-            <div id="login-form">
-                <h2>Create your account</h2>
-                <div className="login-form-inputs">
-                    {error === '' ? null : <p className="errors-infos shake">{error}</p>}
-                    <input id="dykm-user-firstname" className="dykm-input" data-info="firstname" type="text" placeholder="Your firstname" onChange={handleChange} />
-                    <input id="dykm-user-lastname" className="dykm-input" data-info="lastname" type="text" placeholder="Your lastname" onChange={handleChange} />
-                    <input id="dykm-user-email" className="dykm-input" data-info="email" type="email" placeholder="Email address" onChange={handleChange} />
-                    <input id="dykm-user-password" className="dykm-input" data-info="password" type="password" placeholder="Your password" onChange={handleChange} />
-                    <input id="dykm-user-password-verify" className="dykm-input" data-info="passwordVerify" type="password" placeholder="Verify you password" onChange={handleChange} />
+                <h1>Do You Know Me ?</h1>
+                <div id="login-form">
+                    <h2>Create your account</h2>
+                    <div className="login-form-inputs">
+                        {error === '' ? null : <p className="errors-infos shake">{error}</p>}
+                        <input id="dykm-user-firstname" className="dykm-input" data-info="firstname" type="text" placeholder="Your firstname" onChange={handleChange} />
+                        <input id="dykm-user-lastname" className="dykm-input" data-info="lastname" type="text" placeholder="Your lastname" onChange={handleChange} />
+                        <input id="dykm-user-email" className="dykm-input" data-info="email" type="email" placeholder="Email address" onChange={handleChange} />
+                        <input id="dykm-user-password" className="dykm-input" data-info="password" type="password" placeholder="Your password" onChange={handleChange} />
+                        <input id="dykm-user-password-verify" className="dykm-input" data-info="passwordVerify" type="password" placeholder="Verify you password" onChange={handleChange} />
+                    </div>
+                    {isLoading ? <div className="loader"></div> : <button className="dykm-btn" id="login-btn" onClick={addUser} >Create</button>}
                 </div>
-                {isLoading ? <div className="loader"></div> : <button className="dykm-btn" id="login-btn" onClick={addUser} >Create</button>}
+                <p>Allready have an account ? <span className="dykm-link" onClick={()=> { setNewAccout(false) }}>Loggin</span>.</p>
             </div>
-            <p>Allready have an account ? <span className="dykm-link" onClick={()=> { setNewAccout(false) }}>Loggin</span>.</p>
-        </div>
         )
     }
 

@@ -17,5 +17,7 @@
     "url": "https://github.com/yannis94/dykm/issues"
   },
   "homepage": "https://github.com/yannis94/dykm#readme",
-  "dependencies": {}
+  "dependencies": {
+    "pg": "^8.6.0"
+  }
 }
