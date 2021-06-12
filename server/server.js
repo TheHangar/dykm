@@ -3,62 +3,62 @@ const fs = require("fs")
 const path = require("path")
 
 const MIME = require("./config/mime")
-const { json } = require("./config/mime")
+const DB = require("./config/db.js")
 
 const PORT = process.env.PORT || 3003
 const host = "127.0.0.1"
 
 const server = http.createServer((req, res) => {
-    let directory = req.url
-    while(path.dirname(directory) !== "/") {
-        directory = path.dirname(directory)
+    let requestPath = req.url
+    while(path.dirname(requestPath) !== "/") {
+        requestPath = path.dirname(requestPath)
     }
 
+    if (requestPath === "/login") {
+        if (req.method === "POST") {
+            let infos = ''
+            req.on("data", (chunk) => {
+                infos += chunk
+            })
+            req.on('end', () => {
+                console.log(infos)
+                //verify mail & hash in db
+                //if good > status code 200
+                //if not > status code 401
 
-    if (req.url === "/") {
+                //DB.test(infos)
 
-        fs.readFile("./index.html", "utf8", (err, file) => {
-            if (err) {
+                res.statusCode = 401
+                res.end()
+            })
+            req.on('error', (err) => {
                 console.log(err)
-                res.statusCode = 503
-                res.setHeader("Content-Type", MIME.html)
-                res.end("<h1>503, Internal error</h1>")
-            }
-            else {
-                res.statusCode = 200
-                res.setHeader("Content-Type", MIME.html)
-                res.end(file)
-            }
-        })
-
-        
+                res.statusCode = 500
+                res.end()
+            })
+        }
     }
 
-    else if (directory === "/api") {
-        res.statusCode = 200
-        res.setHeader("Content-Type", MIME.json)
-        res.end(JSON.stringify({"msg": "Hello friend"}))
-    }
-
-    else if (directory === "/public") {
-
-        let fileExt = path.extname(req.url).replace(".", "")
-        let fileContent = ""
-
-        const stream = fs.createReadStream(`./${req.url}`, (err) => {
-            if (err) {
+    if (requestPath === "/adduser") {
+        if (req.method === "POST") {
+            let infos = ''
+            req.on("data", (chunk) => {
+                infos += chunk
+            })
+            req.on('end', () => {
+                console.log(infos)
+                //create new row in db
+                //if good > status code 200
+                //if not > status code 401
+                res.statusCode = 401
+                res.end()
+            })
+            req.on('error', (err) => {
                 console.log(err)
-            }
-        })
-        stream.on("data", chunk => {
-            fileContent += chunk
-        })
-        stream.on("end", () => {
-            res.statusCode = 200
-            res.setHeader("Content-Type", MIME[fileExt])
-            res.end(fileContent)
-        })
-
+                res.statusCode = 500
+                res.end()
+            })
+        }
     }
 
     else {
