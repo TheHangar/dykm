@@ -184,7 +184,7 @@ export default function LoginPage () {
                     </div>
                     {isLoading ? <div className="loader"></div> : <button className="dykm-btn" id="login-btn" onClick={addUser} >Create</button>}
                 </div>
-                <p>Allready have an account ? <span className="dykm-link" onClick={()=> { setNewAccout(false) }}>Loggin</span>.</p>
+                <p>Allready have an account ? <span className="dykm-link" onClick={()=> { setNewAccout(false) }}>Login</span>.</p>
             </div>
         )
     }
@@ -197,7 +197,7 @@ export default function LoginPage () {
                     <h2>Login to DYKM</h2>
                     {error === '' ? null : <p className="errors-infos shake">{error}</p>}
                     <div className="login-form-inputs">
-                        <input className="dykm-input" type="email" data-info="email" placeholder="email address" onChange={handleChange} />
+                        <input className="dykm-input" type="email" data-info="email" placeholder="Email address" onChange={handleChange} />
                         <input id="dykm-input-password" className="dykm-input" type="password" data-info="password" placeholder="Password" onChange={handleChange} />
                     </div>
                     {isLoading ? <div className="loader"></div> : <button className="dykm-btn" id="login-btn" onClick={loginUser} >Login</button>}
